@@ -1,0 +1,381 @@
+/* Import monospace font */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* CSS Variables - Dark Gray Theme with Neon Blue */
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
+    --bg-tertiary: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-blue: #00d9ff;
+    --accent-blue-glow: rgba(0, 217, 255, 0.3);
+    --border-color: #3a3a3a;
+    --shadow: rgba(0, 0, 0, 0.5);
+
+    --font-mono: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-mono);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Boot Screen */
+#boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.boot-content {
+    text-align: center;
+}
+
+.boot-logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px var(--accent-blue-glow);
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+}
+
+.loading-progress {
+    height: 100%;
+    background: var(--accent-blue);
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--accent-blue-glow);
+}
+
+.boot-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+}
+
+/* Desktop */
+#desktop {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: var(--bg-primary);
+}
+
+#desktop-icons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    gap: 20px;
+    padding: 20px;
+}
+
+.desktop-icon {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background var(--transition-fast);
+    user-select: none;
+}
+
+.desktop-icon:hover {
+    background: var(--bg-secondary);
+}
+
+.desktop-icon:active {
+    background: var(--bg-tertiary);
+}
+
+.icon-image {
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-label {
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    text-align: center;
+    word-break: break-word;
+}
+
+/* Window System */
+#windows-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.window {
+    position: absolute;
+    min-width: 400px;
+    min-height: 300px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.window.active {
+    z-index: 100;
+}
+
+.window.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.window.minimized {
+    opacity: 0;
+    transform: scale(0.9) translateY(50px);
+    pointer-events: none;
+}
+
+.window-titlebar {
+    height: 40px;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    cursor: move;
+    border-radius: 8px 8px 0 0;
+    user-select: none;
+}
+
+.window-title {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+}
+
+.window-btn:hover {
+    opacity: 0.8;
+}
+
+.btn-minimize {
+    background: #fbbf24;
+}
+
+.btn-maximize {
+    background: #10b981;
+}
+
+.btn-close {
+    background: #ef4444;
+}
+
+.window-content {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+    color: var(--text-primary);
+}
+
+.window-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+    background: var(--border-color);
+}
+
+.window-resizer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: nwse-resize;
+}
+
+/* Alt+Tab Overlay */
+#alt-tab-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.alt-tab-container {
+    display: flex;
+    gap: 16px;
+    padding: 24px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.alt-tab-item {
+    width: 120px;
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border: 2px solid transparent;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.alt-tab-item.selected {
+    border-color: var(--accent-blue);
+    background: var(--bg-primary);
+    box-shadow: 0 0 20px var(--accent-blue-glow);
+}
+
+.alt-tab-icon {
+    font-size: 32px;
+}
+
+.alt-tab-title {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Content Styles */
+.project-list {
+    display: grid;
+    gap: 16px;
+}
+
+.project-item {
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.project-item:hover {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-blue-glow);
+}
+
+.project-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+}
+
+.project-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.project-type {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 8px;
+    background: var(--bg-primary);
+    border-radius: 3px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

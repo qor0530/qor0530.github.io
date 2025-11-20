@@ -1,0 +1,25 @@
+{
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "Portfolio Website",
+      "description": "A custom OS-style portfolio website built with vanilla JavaScript. Features window management, drag & drop, and Alt+Tab navigation.",
+      "type": "github",
+      "link": "https://github.com/qor0530/qor0530.github.io"
+    },
+    {
+      "id": "project-2",
+      "title": "Example Web App",
+      "description": "An interactive web application demonstrating modern web technologies.",
+      "type": "html",
+      "link": "./projects/example-app.html"
+    },
+    {
+      "id": "project-3",
+      "title": "Another GitHub Project",
+      "description": "Description of your GitHub project. This will open in a new tab when clicked.",
+      "type": "github",
+      "link": "https://github.com/yourusername/project"
+    }
+  ]
+}

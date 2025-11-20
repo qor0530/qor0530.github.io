@@ -1,0 +1,34 @@
+{
+  "desktop": [
+    {
+      "type": "folder",
+      "icon": "📁",
+      "label": "Projects",
+      "id": "projects"
+    },
+    {
+      "type": "folder",
+      "icon": "📁",
+      "label": "Blog",
+      "id": "blog"
+    },
+    {
+      "type": "folder",
+      "icon": "📁",
+      "label": "About Me",
+      "id": "about"
+    },
+    {
+      "type": "file",
+      "icon": "📄",
+      "label": "Resume",
+      "id": "resume"
+    },
+    {
+      "type": "folder",
+      "icon": "📁",
+      "label": "Contact",
+      "id": "contact"
+    }
+  ]
+}

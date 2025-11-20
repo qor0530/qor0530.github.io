@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #00d9ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+        }
+
+        h2 {
+            color: #00d9ff;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .feature-box {
+            background: #242424;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .feature-box:hover {
+            border-color: #00d9ff;
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+        }
+
+        button {
+            background: #00d9ff;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background: #00c4ea;
+        }
+    </style>
+</head>
+<body>
+    <h1>Example Web Application</h1>
+
+    <p>This is an example of an internal HTML page that opens inside a window in your portfolio.</p>
+
+    <div class="feature-box">
+        <h2>Interactive Features</h2>
+        <p>You can add any interactive content here - forms, calculators, demos, games, etc.</p>
+        <button onclick="alert('Hello from the internal app!')">Click Me</button>
+    </div>
+
+    <div class="feature-box">
+        <h2>Custom Content</h2>
+        <p>This page is completely customizable. You can:</p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li>Add your own styles</li>
+            <li>Include JavaScript functionality</li>
+            <li>Embed media (images, videos)</li>
+            <li>Create interactive demos</li>
+        </ul>
+    </div>
+
+    <div class="feature-box">
+        <h2>Project Showcase</h2>
+        <p>Use pages like this to showcase specific projects with detailed information, screenshots, and interactive demos.</p>
+    </div>
+</body>
+</html>
