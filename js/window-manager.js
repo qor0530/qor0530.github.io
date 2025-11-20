@@ -9,8 +9,12 @@ class WindowManager {
         this.altTabContainer = document.querySelector('.alt-tab-container');
         this.altTabActive = false;
         this.altTabIndex = 0;
+        this.taskbarItems = document.querySelector('.taskbar-items');
+        this.contextMenu = document.getElementById('context-menu');
+        this.contextMenuTarget = null;
 
         this.initKeyboardShortcuts();
+        this.initContextMenu();
     }
 
     createWindow(options) {
@@ -56,6 +60,7 @@ class WindowManager {
 
         this.windows.push(windowObj);
         this.setupWindowEvents(windowObj);
+        this.updateTaskbar();
 
         // Show with animation
         setTimeout(() => {
@@ -158,6 +163,7 @@ class WindowManager {
         windowObj.element.classList.add('active');
         windowObj.element.style.zIndex = ++this.zIndexCounter;
         this.activeWindow = windowObj;
+        this.updateTaskbar();
     }
 
     minimizeWindow(windowObj) {
@@ -169,6 +175,7 @@ class WindowManager {
         if (visibleWindows.length > 0) {
             this.focusWindow(visibleWindows[visibleWindows.length - 1]);
         }
+        this.updateTaskbar();
     }
 
     restoreWindow(windowObj) {
@@ -213,6 +220,7 @@ class WindowManager {
             if (visibleWindows.length > 0) {
                 this.focusWindow(visibleWindows[visibleWindows.length - 1]);
             }
+            this.updateTaskbar();
         }, 150);
     }
 
@@ -285,6 +293,76 @@ class WindowManager {
             this.focusWindow(visibleWindows[this.altTabIndex]);
         }
         this.hideAltTab();
+    }
+
+    updateTaskbar() {
+        if (!this.taskbarItems) return;
+
+        this.taskbarItems.innerHTML = '';
+
+        this.windows.forEach(windowObj => {
+            const taskbarItem = document.createElement('div');
+            taskbarItem.className = 'taskbar-item';
+            taskbarItem.dataset.windowId = windowObj.id;
+
+            if (this.activeWindow && this.activeWindow.id === windowObj.id) {
+                taskbarItem.classList.add('active');
+            }
+
+            if (windowObj.minimized) {
+                taskbarItem.classList.add('minimized');
+            }
+
+            taskbarItem.textContent = windowObj.icon || '📄';
+
+            // Left click - toggle focus/minimize
+            taskbarItem.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (windowObj.minimized) {
+                    this.restoreWindow(windowObj);
+                } else if (this.activeWindow && this.activeWindow.id === windowObj.id) {
+                    this.minimizeWindow(windowObj);
+                } else {
+                    this.focusWindow(windowObj);
+                }
+            });
+
+            // Right click - show context menu
+            taskbarItem.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                this.showContextMenu(e.clientX, e.clientY, windowObj);
+            });
+
+            this.taskbarItems.appendChild(taskbarItem);
+        });
+    }
+
+    initContextMenu() {
+        // Close context menu on click outside
+        document.addEventListener('click', () => {
+            this.hideContextMenu();
+        });
+
+        // Context menu item click
+        this.contextMenu.addEventListener('click', (e) => {
+            const action = e.target.dataset.action;
+            if (action === 'close' && this.contextMenuTarget) {
+                this.closeWindow(this.contextMenuTarget);
+                this.hideContextMenu();
+            }
+        });
+    }
+
+    showContextMenu(x, y, windowObj) {
+        this.contextMenuTarget = windowObj;
+        this.contextMenu.style.left = `${x}px`;
+        this.contextMenu.style.top = `${y}px`;
+        this.contextMenu.style.display = 'block';
+    }
+
+    hideContextMenu() {
+        this.contextMenu.style.display = 'none';
+        this.contextMenuTarget = null;
     }
 }
 
